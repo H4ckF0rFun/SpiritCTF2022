@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Note Manager</title>
+
+    </head>
+
+    <style type="text/css">
+
+
+        .func_btn {
+            width: 40%;
+            margin: 2px auto;            
+            height: 30px;
+            border: 1px solid darkgray;
+            background-color:azure;
+            text-align: center;
+            line-height: 30px;
+            font-size: 10px;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            caret-color: transparent;
+            border-radius: 10px;
+        }
+        
+        div.func_btn:link{
+            background-color:azure;
+        }
+        div.func_btn:hover{
+            background-color: white;
+        }
+        div.func_btn:active{
+            background-color: darkgray;
+        }
+    </style>
+
+    <body>
+        <script>
+            function goto(func){
+                var url = 'http://';
+                url += window.location.host;
+                url += '/' + func + '.html'
+
+                window.location.href = url
+            }
+        </script>
+
+            <div style="width:40%;height: 220px;margin:auto auto;background-color:lightgrey;border-radius: 10px;">
+                <div style="text-align:center;font-size: 30px;height: 60px;color:darkgrey">
+                    NoteManager
+                </div>
+                <div id = 'add' class="func_btn" onclick="goto('add')">
+                    add note
+                </div>
+                
+                <div id = 'show' class="func_btn" onclick="goto('show')">
+                    show note
+                </div>
+                
+                <div id = 'edit' class="func_btn" onclick="goto('edit')">
+                    edit note
+                </div>
+                
+                <div id = 'delete' class="func_btn" onclick="goto('delete')">
+                    delete note
+                </div>
+    
+            </div>
+    </body>
+    
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Add Note</title>
+        <meta charset="utf-8">
+    </head>
+    <style type="text/css">
+        .emmm{
+            width: 60%;
+            height: 40px;
+            margin: 2px auto;
+            background-color: lightgrey;
+        }
+        .name{
+            color:grey;
+            margin-left: 8px;
+            display: inline-block;
+            width: 20%;
+            font-size: 14px;
+            line-height: 40px;
+        }
+        .input_text{
+            display: inline-block;
+            width: 60%;
+            height: 70%;
+            border: none;
+            border-radius: 10px;
+        }
+        .submit{
+            width: 20%;
+            display:block;
+            margin: 10px auto;
+            border-radius: 6px;
+            border: 1px solid darkgrey;
+        }
+    </style>
+    <body>
+        <script>
+            function add(){
+                var index = parseInt(document.getElementById('index').value)
+                var len = 4 
+
+                var payload = new Uint8Array(len)
+
+                for(var i = 0;i<4;i++){
+                    payload[i] = index%256;
+                    index = index/256;
+                }
+                console.log(payload)
+                
+                url = 'http://' + window.location.host + '/show'
+
+                var httpRequest = new XMLHttpRequest();
+                httpRequest.open('POST', url, true); 
+                httpRequest.setRequestHeader("Content-type","application/notemanager_data");
+                httpRequest.send(payload);
+
+                httpRequest.onreadystatechange = function () {
+                    if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                        var json = httpRequest.responseText;
+                        if(JSON.parse(json)['statu'] == 'success'){  
+                            console.log(JSON.parse(json)['content'])
+                            alert(atob(JSON.parse(json)['content']))
+                            window.location.href = 'http://' + window.location.host + '/'
+                        }else{
+                            alert('show note failed!')
+                        }
+                    }
+                };
+            }   
+        </script>
+        <div style="width:40%;height: 200px;margin:0 auto;background-color:lightgrey;border-radius: 10px;">
+            <div style="text-align:center;font-size: 30px;height: 60px;color:darkgrey">
+                Show Note
+            </div>
+            <div class="emmm" >
+                <span class="name">index:</span>
+                <input id = 'index' type="text" value="" class="input_text">  
+            </div>
+
+            <input type="button" value="submit" class="submit" onclick="add()">
+        </div>
+        
+    </body>
+</html>
+
+
